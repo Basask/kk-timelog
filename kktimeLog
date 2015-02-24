@@ -1,0 +1,20 @@
+#!/bin/bash
+
+LOG_FILE=~/.kktime.log
+DATE=`date +"%d-%m"`
+TIME=`date +"%H:%M:%S"`
+LAST_LINE=`tail -n1 $LOG_FILE`
+LAST_DATE=`echo $LAST_LINE | cut -f1 -d' '`
+NOTE=$1
+
+if [ "$DATE" = "$LAST_DATE" ]; then
+	echo "Old Day ($DATE - $TIME)"
+else
+	echo "New Day ($DATE - $TIME)"
+	echo  "#" >> $LOG_FILE 
+	echo -n "$DATE - " >> $LOG_FILE 
+fi 
+
+echo "$NOTE"
+
+echo -n "[$NOTE] $TIME " >> $LOG_FILE 
